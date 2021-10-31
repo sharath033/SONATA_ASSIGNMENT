@@ -1,0 +1,152 @@
+
+1.List the department without any employees in it.
+
+SELECT DEPT,DEPTNO,DEPT,DNAME
+FROM DEPT
+LEFT OUTER JOIN EMP
+ON EMP.DEPT NO=DEPT.DEPTNO
+WHERE EMP.DEPTNO IS NULL
+
+-------------------------------------------------------------------------------------------------------------------------------
+2.List the name and job of the employees who does not report to anybody
+
+SELECT ENAME,JOB
+  FROM EMP
+  WHERE MGR IS NULL;
+-----------------------------------------------------------------------------------------------------------------------------
+3.Write a query that will give you the names and jobs of all employees in New York with a commission above 1000.
+
+SELECT ENAME,JOB
+FROM EMP
+WHERE (JOB='NEWYORK' AND COMM>1000);
+------------------------------------------------------------------------------------------------------------------------------
+4.How many employees work in Chicago?
+
+SELECT COUNT(*) AS 'NUMBER OF EMPLOYEES'
+FROM DEPT D
+JOIN EMP E
+ON D.DEPTNO=E.DEPTNO
+WHERE D.LOC='CHICAGO';
+-------------------------------------------------------------------------------------------------------------------------------
+5.Which employees work in Chicago?
+
+SELECT ENAME
+FROM DEPT D
+JOIN EMP E
+ON D.DEPTNO=E.DEPTNO
+WHERE D.LOC='CHICAGO'
+------------------------------------------------------------------------------------------------------------------------------
+6.List the employees’ names and cities in which they work. Order the list by city.	
+
+SELECT COUNT(E.ENAME),COUNT(DISTINCT D.DNAME)
+FROM EMP E
+RIGHT OUTER JOIN DEPT D
+ON E.DEPTNO=D.DEPTNO;
+----------------------------------------------------------------------------------------------------------------------------------------
+7.Find the number of employees and number of departments.
+
+SELECT E.*
+FROM EMP E LEFT JOIN EMP E1
+ON.E.MGR=E1.EMPNO
+WHERE E.HIREDATE<E1.HIREDATE;
+----------------------------------------------------------------------------------------------------------------------------------------
+8.Display the employees who were hired before their managers.
+
+SELECT COUNT(*) AS'NUMBER OF MANAGERS'
+FROM EMP
+WHERE JOB='MANAGER';
+---------------------------------------------------------------------------------------------------------------------------------
+9.Determine the number of managers without listing them
+
+SELECT ENAME,JOB 
+FROM EMP
+WHERE MGR IS NULL;
+--------------------------------------------------------------------------------------------------------------------------------------------
+10.Display the name and title of all employees who do not have a manager.	
+
+SELECT ENAME,DEPTNO
+FROM EMP
+WHERE ENAME='SMITH';
+-------------------------------------------------------------------------------------------------------------------------------
+11.Create a query to display the employee name and department number for employee SMITH.
+
+SELECT E.ENAME,E.JOB,D.LOC
+FROM EMP
+JOIN DEPT D
+ON D.DEPTNO=E.DEPTNO
+WHERE E.JOB='SALESMAN' AND D.LOC!='BOSTON';
+-----------------------------------------------------------------------------------------------------------------------------
+12.Display the salesmen who are not in Boston
+
+SELECT E.HIREDATE,E.ENAME,E.JOB,E.EMPNO,E.COMM,D.LOC
+FROM EMP E
+JOIN DEPT D
+ON D.DEPTNO=E.DEPTNO
+----------------------------------------------------------------------------------------------------------------------------
+13.List the details of the employees along with their location
+
+SELECT ENAME,SAL,JOB
+FROM  EMP E
+WHERE JOB='SALESMAN' AND
+SAL<(SELECT SAL FROM EMP WHERE ENAME='MILLER');
+-------------------------------------------------------------------------------------------------------------------------------
+14.List the salesmen who are drawing salary less than Miller
+
+SELECT E.HIREDATA,E.ENAME,E.JOB,E.EMPNO,E.COMM,D.LOC
+FROM EMP E
+JOIN DEPT D
+-------------------------------------------------------------------------------------------------------------------------------
+15.Display the details of the employee working in Chicago
+
+SELECT E.HIREDATE,E.ENAME,E.JOB,E.EMPNO,E.COMM,D.LOC
+FROM EMP E
+JOIN DEPT D
+ON D.DEPTNO=E.DEPTNO
+WHERE D.LOC='CHICAGO';
+--------------------------------------------------------------------------------------------------------------------------------
+16.Find the names of all employees whose salaries are greater than the minimum salary for the Manager
+
+SELECT ENAME,SAL,JOB
+FROM EMP
+WHERE SAL>(SELECT MIN(SAL)
+FROM EMP WHERE JOB='MANAGER')
+AND JOB!='MANAGER';
+--------------------------------------------------------------------------------------------------------------------------------
+17.Select the last name and job id from all employees whose department id is equal to Accounting.
+
+SELECT E.ENAME,E.JOB,E.DEPTNO
+FROM EMP E
+JOIN DEPT D
+ON D.DEPTNO=E.DEPTNO AND D.DNAME='ACCOUNTING';
+----------------------------------------------------------------------------------------------------------------------------
+18.Display those emp who are working as manager
+
+SELECT ENAME 
+FROM EMP
+WHERE JOB='MANAGER';
+-------------------------------------------------------------------------------------------------------------------------
+19.write a subquery using case statement to display non sales if department is not sales
+
+SELECT DNAME
+CASE WHEN DNAME!='SALES' THEN 'NOT SALE'
+ELSE 'SALE'
+END AS CASE1 FROM DEPT;
+------------------------------------------------------------------------------------------------------------------------
+20.If salary of an employee is more than 1000, then display salary otherwise display 1000
+
+SELECT SAL,CASE WHEN SAL>1000 THEN 'GREATER THAN 1000'
+ELSE '1000' END AS 'COMPARISION'
+FROM EMP;
+-------------------------------------------------------------------------------------------------------------------------
+21.Display salary as low, medium high based on salary range
+Less than 1000 less
+1000 to 2500 medium
+More than 2500 high
+
+SELECT SAL,CASE WHEN SAL < 1000 THEN 'LOW'
+WHEN SAL>=1000 AND SAL<=2500 THEN 'MEDIUM'
+ELSE 'HIGH' END AS 'COMPARSION'
+FROM EMP;
+=========================================================================================================================================
+
+----------------------------------------------------------------------------------------------------------------------------
